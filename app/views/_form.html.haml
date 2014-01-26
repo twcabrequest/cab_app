@@ -1,0 +1,37 @@
+.row-fluid
+  .form-horizontal
+    = form_for(@info) do |f|
+      -if @info.errors.any?
+        #error_explanation
+          %h2= pluralize(@info.errors.count, "error")
+          %ul
+            -@info.errors.full_messages.each do |msg|
+              %li=  msg
+            %end
+      %end
+
+        .row-fluid
+          .span2
+            = f.label "Name:"
+          .span4
+            .control-group
+              = f.text_field :name, :id => 'name', required: true, title: 'only alphabets', pattern: '^[a-z A-Z]+$', autofocus: true, placeholder: "CAS username only"
+
+        .row-fluid
+          .span2
+            = f.label "Contact No:"
+          .span4
+            .control-group
+              = f.text_field :contact_no, :id => 'contact_no', required: true, title: 'exactly 10 integers ', pattern: '^[0-9]{10}$'
+
+        .row-fluid
+          .span2
+            = f.label "Email:"
+          .span4
+            .control-group
+              = f.text_field :email, :id => 'email', required: true, title: 'valid email', pattern: '^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$'
+
+        .row-fluid
+          .span2
+          .span4
+            = f.submit :class => 'btn btn-primary' ,id: "submit"

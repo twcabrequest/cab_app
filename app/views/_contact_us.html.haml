@@ -1,0 +1,35 @@
+.row-fluid
+  .span10
+    %h5.message Cab request message will be sent to:
+    %table{:cellspacing => 50 ,id: 'table',class:'table table-striped table-hover table-bordered'}
+      %tr
+        %td
+          %b Admin:
+        %td
+          =@admins_name
+      %tr
+        %td
+          %b Admin's contact number:
+        %td
+          =@admins_contact_no
+      %tr
+        %td
+          %b Admin's email:
+        %td
+          =@admins_email
+
+      %tr
+        %td
+          %b Vendor:
+        %td
+          =@vendor.try(:name)
+      %tr
+        %td
+          %b Vendor's contact number:
+        %td
+          =@vendor.try(:contact_no)
+      %tr
+        %td
+          %b Vendor's email:
+        %td
+          =@vendor.try(:email)

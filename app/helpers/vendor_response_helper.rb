@@ -1,0 +1,2 @@
+module VendorResponseHelper
+end

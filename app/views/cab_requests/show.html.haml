@@ -1,0 +1,45 @@
+.span12
+  -if @cab_requests != nil && @cab_requests != []
+    -if notice
+      .span8
+        %h5.message
+          = notice
+    %a.btn.btn-info{href: "/cab_requests/show.xls", id: 'xls_link'}
+      %i.icon-download-alt
+      XLS Sheet
+    %table{:cellspacing => 50 ,id: "table", :class=>"table table-striped table-hover table-bordered"}
+      %th ReqId
+      %th Requester
+      %th Traveller
+      %th Mobile No.
+      %th Date
+      %th Time
+      %th From
+      %th To
+      %th Vehicle Type
+      %th Project
+      %th Comments
+      %th Status
+
+      - @cab_requests_page.zip(@dates).each do |each_request,date|
+        %tr
+          %td= each_request.id
+          %td= each_request.requester
+          %td= each_request.traveler_name
+          %td= each_request.contact_no
+          %td= date.strftime("%d/%m/%Y")
+          %td= ist(each_request.pick_up_date_time)
+          %td= each_request.source
+          %td= each_request.destination
+          %td= each_request.vehicle_type
+          %td= each_request.project
+          %td= each_request.comments
+          %td= each_request.status
+      %end
+
+    .pagination-centered
+      = will_paginate @cab_requests_page, previous_label: "Previous", next_label: "Next", :renderer => BootstrapPagination::Rails
+  -elsif @cab_requests == []
+    %h4 Oops! You haven't made any request
+
+

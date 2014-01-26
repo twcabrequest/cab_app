@@ -1,0 +1,289 @@
+div {
+  &.field, &.actions {
+    margin-bottom: 10px;
+  }
+}
+
+.field_with_errors {
+  padding: 2px;
+  background-color: red;
+  display: table;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 0;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  h2 {
+    text-align: left;
+    font-weight: bold;
+    padding: 5px 5px 5px 15px;
+    font-size: 12px;
+    margin: -7px;
+    margin-bottom: 0px;
+    background-color: #c00;
+    color: #fff;
+  }
+
+  ul li {
+    font-size: 10px;
+    list-style: square;
+    color: black;
+  }
+
+}
+
+msg{
+    color: #500000;
+}
+
+.cab-logo {
+  width: 156px;
+}
+
+.uneditable-input{
+  cursor: pointer;
+}
+
+.nav-tabs > li > a {
+  border: none;
+}
+
+.page-title{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  color: #ffffff;
+  overflow: hidden;
+  clear:both;
+}
+
+.page-title h1{
+  background: url('crs_logo.png') no-repeat;
+  text-indent: -9999px;
+  float:left;
+  width: 400px;
+}
+
+.page-title div.loginInfo{
+  float:right;
+  padding: 20px 0px 0px;
+  text-shadow: black 2px 1px 2px;
+}
+
+.page-title div.loginInfo a{
+  color: #7ecae0;
+}
+
+.page-title div.loginInfo span{
+  font-weight: bold;
+}
+
+body{
+  background: url('header_bg.png') repeat-x;
+}
+
+#show{
+  text-align: center;
+  padding-top: 10px;
+}
+
+#display_reports{
+  vertical-align: top;
+  width: 10%;
+}
+
+.span12>hr{
+  border-color: rgb(207, 207, 207);
+}
+
+.vertical-line{
+  border-right: 1px lightgrey inset;
+}
+
+.footer{
+  text-align: center;
+  padding: 10px 0px;
+  font-size: 11px;
+}
+
+.form-main{
+  border-bottom:  1px lightgrey inset;
+  margin-bottom: 10px;
+}
+
+.span6{
+  h4{
+   text-align: center;
+   color: grey;
+
+  }
+
+  #reset_btn{
+    line-height: 18px;
+  }
+
+  .control-group{
+    h3{
+      font-weight: normal;
+      }
+  }
+
+  #other_source{
+    margin-top: 10px;
+  }
+
+  #other_destination{
+    margin-top: 10px;
+  }
+
+  span>a>img{
+    vertical-align: bottom;
+  }
+
+  #pick_up_date{ cursor:default;}
+
+  #pick_up_time{ cursor:default;}
+}
+
+#xls_link{
+  float: right;
+  margin-bottom: 15px;
+}
+
+a:hover{
+  text-decoration: none;
+}
+
+#New{
+  float: right;
+  margin-bottom: 15px;
+  font-size: 30px;
+  vertical-align: middle;
+  padding-top: 0px;
+  border: round(10px);
+}
+
+h3{
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0px 0px 20px;
+  margin: 0px;
+}
+
+h4{
+  font-size: 14px;
+  font-weight: bold;
+}
+
+h5.message{
+  font-size:16px;
+}
+
+.nav-tabs {
+  border-bottom: none;
+}
+
+.nav-tabs a {
+  color: #006f8f;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: white 1px 1px 1px;
+}
+
+.nav-tabs{
+  list-style: none;
+  padding-top: 15px;
+  margin-left: 0px;
+}
+
+.pageContainer{
+  background: #eaebeb;
+  border-radius: 10px;
+  border: #cfcfcf 1px solid;
+  padding: 10px 20px;
+  margin-top: 5px;
+}
+.update_message {
+  width: 110px;
+  border: none;
+}
+
+#table tr:nth-child(odd) input:disabled  {
+  background-color: #f9f9f9;
+  cursor: auto;
+}
+
+#table tr:nth-child(even) input:disabled {
+  background-color: #eaebeb;
+  cursor: auto;
+}
+
+#table tr:hover input:disabled {
+  background-color: #f5f5f5;
+}
+
+
+
+.update_button {
+  margin-left: 9px;
+}
+#project{
+  height: 30px;
+  width: 100%;
+}
+#comments{
+  height: 66px;
+  width: 100%;
+}
+#source{
+  color: #808080;
+}
+#destination{
+  color: #808080;
+}
+
+.adminLinks{
+  margin: 0px 0px 0px 0px;
+}
+
+.adminLinks > li{
+  list-style: none;
+}
+
+.nav-tabs > li > ul {
+  position: absolute;
+  left:  542px;
+  top: 126px;
+  list-style: none;
+  background-color: #fff;
+  padding-right: 15px;
+  padding-left: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: none;
+}
+.nav-tabs > li > ul > li {
+  padding:  4px;
+}
+.nav-tabs >  li:hover > ul {
+  display: block;
+}
+#table{
+  table-layout: fixed;
+}
+
+#table td{
+  word-wrap: break-word;
+}
+
+#reset_btn {
+  width: auto;
+  padding-left: 35px;
+  padding-right: 35px;
+}
+.modal-body label {
+  padding-top: 5px;
+}
