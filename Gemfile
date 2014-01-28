@@ -38,7 +38,6 @@ end
     gem 'fuubar'
     gem 'database_cleaner'
     gem 'factory_girl'
-    gem 'magic_encoding'
     gem 'webrick', '~> 1.3.1'
   end
 
