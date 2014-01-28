@@ -1,6 +1,5 @@
-= render '/contact_us'
+-if !@is_admin
+  = render '/contact_us'
 
 -if @is_admin
-  %ul.adminLinks
-    %li
-      %a.btn.btn-primary{href:"/support_centers/edit"}Update
+  = render '/contact_as_admin'

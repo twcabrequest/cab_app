@@ -4,12 +4,13 @@ FactoryGirl.define do
     name 'bhidu'
     contact_no '9039499999'
     email "apurva@gmail.com"
-    status true
+    order 1
   end
 
   factory :inactive_valid_vendor, parent: :vendor do
     name 'dhidu'
-    status false
+    email "apu@gmail.com"
+    order 3
   end
 
   factory :invalid_vendor, parent: :vendor do

@@ -1,0 +1,61 @@
+.row-fluid
+  .span10
+    %h5.message Cab request message will be sent to:
+    .row-fluid
+      .span8
+        %table{:cellspacing => 50 ,id: 'table',class:'table table-hover table-bordered table-striped'}
+          %tr
+            %td
+              %b Admin:
+            %td
+              =@admins_name
+          %tr
+            %td
+              %b Admin's contact number:
+            %td
+              =@admins_contact_no
+          %tr
+            %td
+              %b Admin's email:
+            %td
+              =@admins_email
+      .span4
+        %br
+        %br
+        =form_tag({:action => :update}, :id => 'edit') do
+          .row-fluid
+            .span8
+              %select{:name => "admin" , id: "admins"}
+                -@admins.each do|admin|
+                  %option{:value => admin.name, :selected => admin.status }= admin.name
+                %end
+                %option{:value => "All", :selected => @all_active} All
+            .span2
+              =submit_tag "Update", class: 'btn btn-primary' ,id: "submit"
+
+    %br
+    %br
+
+
+    .row-fluid
+      .span8
+        %table{:cellspacing => 50 ,id: 'table',class:'table table-hover table-bordered table-striped'}
+          %tr
+            %td
+              %b Vendor:
+            %td
+              =@vendor.try(:name)
+          %tr
+            %td
+              %b Vendor's contact number:
+            %td
+              =@vendor.try(:contact_no)
+          %tr
+            %td
+              %b Vendor's email:
+            %td
+              =@vendor.try(:email)
+      .span4
+        %br
+        %br
+        %a.btn.btn-primary{href:"/vendors"}Update
