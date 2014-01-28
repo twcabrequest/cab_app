@@ -21,12 +21,7 @@ class SupportCentersController < ApplicationController
     @admins_name = @admins_name[0..@admins_name.length - 3]
     @admins_contact_no = @admins_contact_no[0..@admins_contact_no.length - 3]
     @admins_email = @admins_email[0..@admins_email.length - 3]
-    @vendor = Vendor.where(order: 1).first
-    @admins = Admin.all
-    @all_active = true
-    @admins.each do |admin|
-      @all_active = @all_active && admin.status
-    end
+    @vendor = Vendor.where(status: true).first
   end
 
   def update
@@ -39,7 +34,18 @@ class SupportCentersController < ApplicationController
       admin = Admin.where(name: params[:admin]).first
       update_status(admin)
     end
+    vendor = Vendor.where(name: params[:vendor]).first
+    update_status(vendor)
     redirect_to support_centers_path
+  end
+
+  def edit
+    @admins = Admin.all
+    @all_active = true
+    @admins.each do |admin|
+      @all_active = @all_active && admin.status
+    end
+    @vendors = Vendor.all
   end
 
   def update_cab_request_status
@@ -49,7 +55,7 @@ class SupportCentersController < ApplicationController
     requester = CabRequest.where(id: params[:req_id]).pluck(:requester).first  + "@thoughtworks.com"
     date = @cab_request.pick_up_date_time.to_date.strftime("%d/%m/%Y")
     time = ist(@cab_request.pick_up_date_time)
-    CabRequestMailer.send_admin_email(@cab_request,date,time,requester,"","").deliver
+    CabRequestMailer.send_email(@cab_request,date,time,requester,"","").deliver
     redirect_to '/support_centers/show'
   end
 
@@ -57,13 +63,10 @@ class SupportCentersController < ApplicationController
     if params[:from]
       from_date = Time.parse(date_time_parser(params[:from], '00:00:00'))
       to_date = Time.parse(date_time_parser(params[:to], '00:00:00')).tomorrow()
-    end
       if (params[:filter_by] == "Booking Date")
         @cab_requests = CabRequest.where(created_at: (from_date..to_date)).order(:created_at)
-      elsif (params[:filter_by] == "Travel Date")
-        @cab_requests = CabRequest.where(pick_up_date_time: (from_date..to_date)).order(:pick_up_date_time)
       else
-        @cab_requests = CabRequest.all.reverse
+        @cab_requests = CabRequest.where(pick_up_date_time: (from_date..to_date)).order(:pick_up_date_time)
       end
       if @cab_requests
         @cab_requests_page = @cab_requests.paginate(page: params[:page], per_page: 10)
@@ -77,11 +80,11 @@ class SupportCentersController < ApplicationController
       @filter_by = params[:filter_by]
       @from = params[:from]
       @to = params[:to]
+    end
     respond_to do |format|
       format.html
       format.xls
     end
-
   end
 
   private

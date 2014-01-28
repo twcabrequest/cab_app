@@ -10,7 +10,7 @@ describe CabRequestsController do
 
   before :all do
     Admin.create(name: "billu", contact_no: "1234567890", email: "sample", status: true)
-    Vendor.create(name: "billu", contact_no: "1234567890", email: "sample", order: 1)
+    Vendor.create(name: "billu", contact_no: "1234567890", email: "sample", status: true)
   end
 
   after :all do
@@ -34,7 +34,7 @@ describe CabRequestsController do
       expected_info.requester_name = 'ooga'
       expected_info.requester_contact_no = '1234567890'
       controller.stub(:call_api).and_return('{ "name" : "ooga", "profile" :  { "mobile" : "1234567890"}}')
-      get(:new, cab_request: @valid_request_hash)
+      get :newsend_email
       result = expected_info.requester_name == session[:requester].requester_name && expected_info.requester_contact_no == session[:requester].requester_contact_no
       result.should  be_false
     end
@@ -42,12 +42,9 @@ describe CabRequestsController do
 
   context 'create' do
     it 'should redirect to show path if saved' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post(:create, cab_request: @valid_request_hash).should redirect_to ('/cab_requests/show')
     end
 
@@ -56,67 +53,49 @@ describe CabRequestsController do
     end
 
     it 'should pick other_source when source == others' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post :create, cab_request: attributes_for(:cab_request, source: 'Other'), source: 'Dilshad Garden'
       controller.instance_variable_get(:@cab_request)[:source].should == 'Dilshad Garden'
     end
 
     it 'should pick flight_number when source == Airport' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post :create, cab_request: attributes_for(:cab_request, source: 'Airport'), source: '9W123'
       controller.instance_variable_get(:@cab_request)[:source].should == 'Airport - Flight Number : 9W123'
     end
 
     it 'should pick guest_house_source when source == Guest House' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post :create, cab_request: attributes_for(:cab_request, source: 'Guest House'), source: 'A-408, Sushant Lok-1, Next to Plaza Mall, Opp Westin Hotel'
       controller.instance_variable_get(:@cab_request)[:source].should == 'Guest House : A-408, Sushant Lok-1, Next to Plaza Mall, Opp Westin Hotel'
     end
 
     it 'should pick other_destination when destination == others' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post :create, cab_request: attributes_for(:cab_request, destination: 'Other'), destination: 'Rajouri Gardens'
       controller.instance_variable_get(:@cab_request)[:destination].should == 'Rajouri Gardens'
     end
 
     it 'should pick flight_number when destination == Airport' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post :create, cab_request: attributes_for(:cab_request, destination: 'Airport'), destination: '9W123'
       controller.instance_variable_get(:@cab_request)[:destination].should == 'Airport - Flight Number : 9W123'
     end
 
     it 'should pick guest_house_destination when destination == Guest House' do
-      admin_mailer = mock
-      admin_mailer.should_receive(:deliver)
-      vendor_mailer = mock
-      vendor_mailer.should_receive(:deliver)
-      CabRequestMailer.stub(:send_admin_email).and_return(admin_mailer)
-      CabRequestMailer.stub(:send_vendor_email).and_return(vendor_mailer)
+      mailer = mock
+      mailer.should_receive(:deliver)
+      CabRequestMailer.stub(:send_email).and_return(mailer)
       post :create, cab_request: attributes_for(:cab_request, destination: 'Guest House'), destination: 'A-408, Sushant Lok-1, Next to Plaza Mall, Opp Westin Hotel'
       controller.instance_variable_get(:@cab_request)[:destination].should == 'Guest House : A-408, Sushant Lok-1, Next to Plaza Mall, Opp Westin Hotel'
     end

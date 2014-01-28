@@ -4,7 +4,6 @@ require 'spec_helper'
 describe VendorsController do
   before :each do
     CASClient::Frameworks::Rails::Filter.fake('homer')
-    Vendor.delete_all
     @active_valid_vendor = create(:vendor)
   end
 

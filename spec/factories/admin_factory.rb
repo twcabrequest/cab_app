@@ -9,7 +9,6 @@ FactoryGirl.define do
 
   factory :inactive_valid_admin, parent: :admin do
     name 'pooga'
-    email 'apurva@gmail.com'
     status false
   end
 

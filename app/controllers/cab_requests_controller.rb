@@ -53,15 +53,15 @@ class CabRequestsController < ApplicationController
     if admin_emails.include? requester
       requester = ""
     end
-    vendor_email = Vendor.where(order: 1).pluck(:email).first
-    vendor_id = Vendor.where(order: 1).pluck(:id).first
-    host = "http://" + request.host_with_port
+    vendor_email = Vendor.where(status: true).pluck(:email).first
+    p vendor_email
+    vendor_id = Vendor.where(status: true).pluck(:id).first
     @cab_request.requested_vendor = vendor_id
     if vendor_email == nil
       render template: '_message'
     elsif @cab_request.save
-       CabRequestMailer.send_admin_email(@cab_request,params[:cab_request][:pick_up_date],params[:cab_request][:pick_up_date_time],requester,admin_emails).deliver
-       CabRequestMailer.send_vendor_email(@cab_request,params[:cab_request][:pick_up_date],params[:cab_request][:pick_up_date_time],requester,admin_emails,vendor_email,vendor_id,host).deliver
+       CabRequestMailer.send_email(@cab_request,params[:cab_request][:pick_up_date],params[:cab_request][:pick_up_date_time],requester,admin_emails).deliver
+       CabRequestMailer.send_vendor_email(@cab_request,params[:cab_request][:pick_up_date],params[:cab_request][:pick_up_date_time],requester,admin_emails,vendor_email,vendor_id).deliver
        redirect_to '/cab_requests/show', {:notice => 'Your request has been sent with ReqId ' + @cab_request.id.to_s}
     else
        render template: 'cab_requests/new'
