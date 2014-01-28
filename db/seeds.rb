@@ -8,4 +8,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 Admin.create( name: "pulkitko", contact_no: "8826811556", email: "pulkitko@thoughtworks.com" , status: true)
+Admin.create( name: "priyankd", contact_no: "8826811556", email: "pulkitko@thoughtworks.com" , status: true)
+Admin.create( name: "ramankan", contact_no: "8826811556", email: "pulkitko@thoughtworks.com" , status: true)
 Vendor.create( name: "pulkitko", contact_no: "8826811556", email: "pulkitko@thoughtworks.com" , order: Vendor.all.count + 1)
