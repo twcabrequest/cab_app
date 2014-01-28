@@ -6,7 +6,7 @@
                   "C-978, Sushant Lok-1, Near Vyapar Kendra, Opp Courtyard Marriott"]
 .span12
   .form-horizontal
-    = form_for(@cab_request) do |f|
+    = form_for @cab_request,:html=> {:id => 'form'} do |f|
 
       -if @cab_request.errors.any?
         #error_explanation
@@ -112,9 +112,20 @@
         .span2
         .span10
           .span2
-            =f.submit "Make a booking" ,class: 'btn btn-primary', id: "Create_cab_request"
+            #loading2{style: "display:none;"}
+              Requesting!
+            =f.submit "Make a booking" ,class: 'btn btn-primary', id: "Create_cab_request", onclick: "$('#loading').show();"
           .span2
             =f.button "Reset", class: 'btn btn-block', type: 'reset', id: "reset_btn"
           .span8
     %end
+
+
+:javascript
+  (function (d) {
+    d.getElementById('form').onsubmit = function () {
+      d.getElementById('Create_cab_request').style.display = 'none';
+      d.getElementById('loading2').style.display = 'block';
+    };
+  }(document));
 
