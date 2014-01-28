@@ -4,6 +4,7 @@ require 'spec_helper'
 describe AdminsController do
   before :each do
     CASClient::Frameworks::Rails::Filter.fake('homer')
+    Admin.delete_all
     @sample_admin = create(:admin)
     @sample_admin2 = create(:inactive_valid_admin)
     @sample_admins = [@sample_admin, @sample_admin2]
@@ -35,6 +36,7 @@ describe AdminsController do
     it 'should redirect to admins_path on successful save' do
       new_admin = attributes_for(:inactive_valid_admin)
       new_admin[:name]='neeli'
+      new_admin[:email] ='neeli@gmail.com'
       post(:create, admin: new_admin).should redirect_to(admins_path)
     end
 
@@ -52,7 +54,7 @@ describe AdminsController do
     end
 
     it 'should redirect to admins_path on successful update' do
-      updated_admin = attributes_for(:inactive_valid_admin, name: 'cooga')
+      updated_admin = attributes_for(:inactive_valid_admin, name: 'cooga', email: 'cooga@gmail.com')
       put(:update, id: @sample_admin.id, admin: updated_admin).should redirect_to(admins_path)
     end
 

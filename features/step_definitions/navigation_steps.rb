@@ -20,13 +20,15 @@ Given /^User is on (.+)$/ do |page_name|
 end
 
 Given /^There is admin and vendor/ do
-  Vendor.create!(name:"bearbbbb",contact_no:"1234567890",email:"parasnarang@gmail.com",status:true)
+  Vendor.create!(name:"bearbbbb",contact_no:"1234567890",email:"parasnarang@gmail.com",order: 1)
   Admin.create!(name:"spiderbbbb",contact_no:"9876543210",email:"parasnar@thoughtworks.com",status:true)
 end
 
 Given /^There are admins and vendors/ do
-  Vendor.create!(name:"deer",contact_no:"1234567890",email:"parasnar@thoughtworks.com",status:false)
-  Vendor.create!(name:"bear",contact_no:"1234567890",email:"pnarang@thoughtworks.com",status:true)
+  Admin.delete_all
+  Vendor.delete_all
+  Vendor.create!(name:"deer",contact_no:"1234567890",email:"parasnar@thoughtworks.com",order: 2)
+  Vendor.create!(name:"bear",contact_no:"1234567890",email:"pnarang@thoughtworks.com",order: 1)
   Admin.create!(name:"spider",contact_no:"9876543210",email:"narangparas@gmail.com",status:true)
 end
 
@@ -152,7 +154,6 @@ Then /^User should be able to view edit_([^"]*) form with pre-filled fields$/ do
   page.should have_xpath('//form[@id="edit_'+content+'_1"]')
   page.should have_xpath('//input[@id="name"][@value="homer"]')
   page.should have_xpath('//input[@id="contact_no"][@value="1234567890"]')
-  page.should have_xpath('//input[@id="email"][@value="narangparas@gmail.com"]')
 end
 
 Then /^User should be able to view support_centers_edit form with drop down lists$/ do
@@ -165,8 +166,8 @@ end
 
 Then /^User should be able to view all ([^"]*) including ([^"]*)/ do |category,type|
   if category.include? 'CabRequests'
-    Vendor.create!(name:"bear",contact_no:"1234567890",email:"narangparas@gmail.com",status:true)
-    Admin.create!(name:"spider",contact_no:"9876543210",email:"narangparas@gmail.com",status:true)
+    Vendor.create!(name:"bear",contact_no:"1234567890",email:"narangparashj@gmail.com",order: 1)
+    Admin.create!(name:"spider",contact_no:"9876543210",email:"narangparaslk@gmail.com",status:true)
     if category == 'his CabRequests'
       cab_requests = CabRequest.where(requester: 'homer')
     else

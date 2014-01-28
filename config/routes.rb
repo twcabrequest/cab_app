@@ -7,11 +7,12 @@ CabApp::Application.routes.draw do
         :via => :get
   match '/requesters/logout' , controller: 'requesters#logout'
   match '/support_centers/update' , controller: 'support_centers#update'
-  match '/support_centers/edit' , controller: 'support_centers#edit'
   match '/cab_requests/show' , controller: 'cab_requests#show'
   match '/support_centers/show' , controller: 'support_centers#show'
   match '/support_centers/update_cab_request_status', controller: 'support_centers#update_cab_request_status'
   match '/anonymous/new' , controller: 'anonymous#new'
+  match '/vendors/change_order_up', controller: 'vendors#change_order_up'
+  match '/vendors/change_order_down', controller: 'vendors#change_order_down'
   resources :cab_requests
   resources :admins
   resources :requesters

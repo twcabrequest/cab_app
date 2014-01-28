@@ -6,7 +6,7 @@ describe SupportCentersController do
   before :each do
     CASClient::Frameworks::Rails::Filter.fake('homer')
     new_admin_hash  = {name: 'homer',contact_no: '9876543210',email: 'apurvagupta@gmail.com', status: true}
-    new_vendor_hash = {name: 'tina',contact_no: '9876543210',email: 'pulkitko@gmail.com', status: true}
+    new_vendor_hash = {name: 'tina',contact_no: '9876543210',email: 'pulkitko@gmail.com', order: 1}
     @admin            = Admin.create!(new_admin_hash)
     @vendor           = Vendor.create!(new_vendor_hash)
   end
@@ -48,23 +48,11 @@ describe SupportCentersController do
       @vendor1.name = 'riya '
       @vendor1.contact_no = '1234567890'
       @vendor1.email = 'apurva@gmail.com'
-      @vendor1.status = false
+      @vendor1.order = 4
       @vendor1.save!
       put :update, admin: @admin.name, vendor: @vendor1.name
-      Vendor.where(name: @vendor1.name).first.status.should == true
-      Vendor.where(name: @vendor.name).first.status.should == false
-    end
-  end
-
-  context 'edit' do
-    it 'should assign requested User data to @admins' do
-      get :edit
-      assigns(:admins).should include @admin
-    end
-
-    it 'should assign requested Vendor data to @vendors' do
-      get :edit
-      assigns(:vendors).should include @vendor
+      Vendor.where(name: @vendor1.name).first.order.should == 4
+      Vendor.where(name: @vendor.name).first.order.should == 1
     end
   end
 

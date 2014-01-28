@@ -47,11 +47,6 @@ Scenario: Edit Vendor page
   Then   User should be able to view edit_vendor form with pre-filled fields
 
 @javascript
-Scenario: Support Centers edit page
-  And    Current User is Admin
-  And    There are admins and vendors
-  When   User is on the support centers edit page
-  Then   User should be able to view support_centers_edit form with drop down lists
 
 Scenario: Support Centers show page
   And    Current User is Admin

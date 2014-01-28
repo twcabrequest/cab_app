@@ -76,11 +76,11 @@ describe Vendor do
 
   end
 
-  context ' Vendor Status ' do
-    it ' should not contain other than a boolean value ' do
-      @vendor.status = nil
+  context ' Order ' do
+    it ' should not contain other than integer value ' do
+      @vendor.order = nil
       @vendor.save.should be_false
-      @vendor.errors[:status].first.should == 'is not included in the list'
+      @vendor.errors[:order].first.should == "can't be blank"
     end
   end
 
