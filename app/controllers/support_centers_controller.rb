@@ -43,14 +43,35 @@ class SupportCentersController < ApplicationController
   end
 
   def update_cab_request_status
-    @cab_request = CabRequest.where(id: params[:req_id]).first
-    @cab_request.update_attribute(:status, params[:new_status])
-    @cab_requests = CabRequest.all
-    requester = CabRequest.where(id: params[:req_id]).pluck(:requester).first  + "@thoughtworks.com"
-    date = @cab_request.pick_up_date_time.to_date.strftime("%d/%m/%Y")
-    time = ist(@cab_request.pick_up_date_time)
-    CabRequestMailer.send_admin_email(@cab_request,date,time,requester,"").deliver
-    redirect_to '/support_centers/show'
+    if !params[:id]
+      redirect_to '/support_centers/show'
+    else
+      @cab_request = CabRequest.where(id: params[:id]).first
+      @cab_request1 = CabRequest.where(id: params[:id]).first
+      @cab_request1.status = params[:new_status]
+      @cab_requests = CabRequest.all.reverse
+      requester = CabRequest.where(id: params[:id]).pluck(:requester).first + "@thoughtworks.com"
+      date = @cab_request.pick_up_date_time.to_date.strftime("%d/%m/%Y")
+      time = ist(@cab_request.pick_up_date_time)
+      begin
+        CabRequestMailer.send_admin_email(@cab_request1, date, time, requester, "").deliver
+        @cab_request.update_attribute(:status, params[:new_status])
+        redirect_to '/support_centers/show'
+      rescue Exception => e
+        @cab_requests.first.errors.add(:some, "error occurred in updating status. Please check your internet connection and update status again.")
+        @is_admin = true
+        if @cab_requests
+          @cab_requests_page = @cab_requests.paginate(page: params[:page], per_page: 10)
+        else
+          @cab_requests_page = []
+        end
+        @dates = []
+        @cab_requests.each do |cab_request|
+          @dates.push cab_request.pick_up_date_time.to_date
+        end
+        render template: 'support_centers/show'
+      end
+    end
   end
 
   def show
@@ -58,25 +79,25 @@ class SupportCentersController < ApplicationController
       from_date = Time.parse(date_time_parser(params[:from], '00:00:00'))
       to_date = Time.parse(date_time_parser(params[:to], '00:00:00')).tomorrow()
     end
-      if (params[:filter_by] == "Booking Date")
-        @cab_requests = CabRequest.where(created_at: (from_date..to_date)).order(:created_at)
-      elsif (params[:filter_by] == "Travel Date")
-        @cab_requests = CabRequest.where(pick_up_date_time: (from_date..to_date)).order(:pick_up_date_time)
-      else
-        @cab_requests = CabRequest.all.reverse
-      end
-      if @cab_requests
-        @cab_requests_page = @cab_requests.paginate(page: params[:page], per_page: 10)
-      else
-        @cab_requests_page = []
-      end
-      @dates = []
-      @cab_requests.each do |cab_request|
-        @dates.push cab_request.pick_up_date_time.to_date
-      end
-      @filter_by = params[:filter_by]
-      @from = params[:from]
-      @to = params[:to]
+    if (params[:filter_by] == "Booking Date")
+      @cab_requests = CabRequest.where(created_at: (from_date..to_date)).order(:created_at)
+    elsif (params[:filter_by] == "Travel Date")
+      @cab_requests = CabRequest.where(pick_up_date_time: (from_date..to_date)).order(:pick_up_date_time)
+    else
+      @cab_requests ||= CabRequest.all.reverse
+    end
+    if @cab_requests
+      @cab_requests_page = @cab_requests.paginate(page: params[:page], per_page: 10)
+    else
+      @cab_requests_page = []
+    end
+    @dates = []
+    @cab_requests.each do |cab_request|
+      @dates.push cab_request.pick_up_date_time.to_date
+    end
+    @filter_by = params[:filter_by]
+    @from = params[:from]
+    @to = params[:to]
     respond_to do |format|
       format.html
       format.xls

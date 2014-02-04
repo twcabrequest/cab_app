@@ -2,6 +2,14 @@
 -if @is_admin
   .span12
     =form_tag({:action => :show, :method => :get}, :id => 'show') do
+
+      -if @cab_requests.first.errors.any?
+        #error_explanation
+          %h2= pluralize(@cab_requests.first.errors.count, "error")
+          %ul
+            -@cab_requests.first.errors.full_messages.each do |msg|
+              %li=  msg
+            %end
       %select{name:'filter_by', id: 'filter_by', required: true}
         %option{:disabled => "", :selected => "", :value => ""} --Filter By--
         %option{value: "Booking Date", selected: @filter_by=="Booking Date"}Booking Date
@@ -32,7 +40,7 @@
       %hr
       %table{id: "table", class: "table table-striped table-hover table-bordered"}
         %th{width: "7%"} ReqId
-        %th{width: "10%"} Requester
+        %th{width: "12%"} Requester
         %th{width: "10%"} Traveller
         %th{width: "13%"} Mobile No.
         %th{width: "12%"} Booked on
@@ -66,10 +74,17 @@
             %td= each_request.project
             %td= each_request.comments
             %td
-              %input{class: "update_message" ,value: each_request.status, disabled: true}
-              %a{href: '#', class: "edit_message", title: "edit status"}
-                %i.icon-pencil
-              %button{class: 'btn btn-primary update_button', "data-id" => each_request.id, style: 'display:none;', disabled: true}update
+              =form_tag({:action => :update_cab_request_status}, :id => 'update') do
+                .row_fluid
+                  .span5
+                    %input{id: 'loading3', style: "display:none;width:90px;", value: 'Updating...', class: 'loading', disabled: true}
+                    %input{id: 'status', class: "update_message" ,value: each_request.status, disabled: true, name: 'new_status', style: 'width:90px'}
+                    =hidden_field_tag :id, each_request.id
+                  .span1
+                  .span5
+                    %a{href: '#', class: "edit_message", title: "edit status"}
+                      %i.icon-pencil#pencil
+                    =submit_tag "Update", class: 'btn btn-primary update_button' ,id: "updt", style: 'display:none;', disabled: true
         %end
 
       .pagination-centered
@@ -77,4 +92,3 @@
     -elsif @cab_requests == []
       %hr
       %h4 No record found
-

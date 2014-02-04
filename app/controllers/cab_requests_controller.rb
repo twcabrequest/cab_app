@@ -17,6 +17,10 @@ class CabRequestsController < ApplicationController
     @cab_request = CabRequest.new(requester: session[:cas_user], traveler_name: session[:requester].requester_name, contact_no: session[:requester].requester_contact_no)
   end
 
+  def update
+    create
+  end
+
   def create
     @cab_request                   = CabRequest.new(params[:cab_request])
     @cab_request.requester         = session[:cas_user]
@@ -59,10 +63,17 @@ class CabRequestsController < ApplicationController
     @cab_request.requested_vendor = vendor_id
     if vendor_email == nil
       render template: '_message'
+
     elsif @cab_request.save
+       begin
        CabRequestMailer.send_admin_email(@cab_request,params[:cab_request][:pick_up_date],params[:cab_request][:pick_up_date_time],requester,admin_emails).deliver
        CabRequestMailer.send_vendor_email(@cab_request,params[:cab_request][:pick_up_date],params[:cab_request][:pick_up_date_time],requester,admin_emails,vendor_email,vendor_id,host).deliver
        redirect_to '/cab_requests/show', {:notice => 'Your request has been sent with ReqId ' + @cab_request.id.to_s}
+       rescue Exception => e
+       @cab_request.errors.add(:some, "error occurred in sending request. Please check your internet connection and book cab again.")
+       CabRequest.where(id: @cab_request.id).first.delete
+       render template: 'cab_requests/new'
+       end
     else
        render template: 'cab_requests/new'
     end

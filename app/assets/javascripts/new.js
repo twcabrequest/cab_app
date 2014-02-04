@@ -181,6 +181,8 @@ $(document).ready(function() {
     edit_message = $.find('.edit_message');
     update_message = $.find('.update_message');
     update_button = $.find('.update_button');
+    pencil = $.find('#pencil')
+    loading = $.find('#loading3')
 
     $.each(edit_message,function(index,value) {
         $(edit_message[index]).click(function () {
@@ -188,22 +190,25 @@ $(document).ready(function() {
             $(update_message)[index].focus();
             $(update_button)[index].style.display="inline";
             $(update_button[index]).attr('disabled', false);
+            $(edit_message)[index].style.display="none";
+
         });
     });
 
     $.each(update_button,function(index,value) {
         $(update_button[index]).click(function () {
-            var d = {
-                req_id: $(this).data('id'),
-                new_status: $(update_message[index]).val()
-            }
-            $.ajax({
-                url: '/support_centers/update_cab_request_status/',
-                data: d
-            });
-            $(update_message[index]).attr('disabled', true);
-            $(update_button[index]).attr('disabled', true);
+//            var d = {
+//                req_id: $(this).data('id'),
+//                new_status: $(update_message[index]).val()
+//            }
+//            $.ajax({
+//                url: '/support_centers/update_cab_request_status/',
+//                data: d
+//            });
             $(update_button)[index].style.display="none";
+            $(loading)[index].style.display="block";
+            $(pencil)[index].style.display="none";
+            $(update_message)[index].style.display="none";
         });
     });
 });
