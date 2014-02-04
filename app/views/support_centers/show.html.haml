@@ -3,13 +3,14 @@
   .span12
     =form_tag({:action => :show, :method => :get}, :id => 'show') do
 
-      -if @cab_requests.first.errors.any?
-        #error_explanation
-          %h2= pluralize(@cab_requests.first.errors.count, "error")
-          %ul
-            -@cab_requests.first.errors.full_messages.each do |msg|
-              %li=  msg
-            %end
+      -if @cab_requests != nil && @cab_requests != []
+        -if @cab_requests.first.errors.any?
+          #error_explanation
+            %h2= pluralize(@cab_requests.first.errors.count, "error")
+            %ul
+              -@cab_requests.first.errors.full_messages.each do |msg|
+                %li=  msg
+              %end
       %select{name:'filter_by', id: 'filter_by', required: true}
         %option{:disabled => "", :selected => "", :value => ""} --Filter By--
         %option{value: "Booking Date", selected: @filter_by=="Booking Date"}Booking Date

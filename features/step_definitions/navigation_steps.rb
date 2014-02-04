@@ -89,7 +89,7 @@ Then /^User should be able to view ([^"]*) link$/ do |content|
 end
 
 Then /^User should be able to view cab_request form with blank fields$/ do
-  page.should have_xpath('//form[@id="new_cab_request"]')
+  page.should have_xpath('//form[@id="form"]')
   page.should have_xpath('//input[@id="traveler_name"]')
   page.should_not have_xpath('//input[@id="traveler_name"][@value]')
   page.should have_xpath('//input[@id="contact_no"]')
@@ -140,7 +140,7 @@ Then /^User should be able to view support_centers_show form with blank fields$/
 end
 
 Then /^User should be able to view cab_request form with pre-filled fields and an appropriate error message$/ do
-  page.should have_xpath('//form[@id="new_cab_request"]')
+  page.should have_xpath('//form[@id="form"]')
   page.should have_xpath('//input[@id="traveler_name"][@value="Cat"]')
   page.should have_xpath('//input[@id="contact_no"][@value="123"]')
   page.should have_xpath('//input[@id="pick_up_date"][@value="07/02/9999"]')
