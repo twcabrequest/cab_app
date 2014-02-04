@@ -29,10 +29,14 @@
           %td= ist(each_request.pick_up_date_time)
           -if (each_request.source.include? "Guest House")
             %td= each_request.source = "Guest House"
+          -elsif (each_request.source.include? "Airport")
+            %td= each_request.source = "Airport"
           -else
             %td= each_request.source
           -if (each_request.destination.include? "Guest House")
             %td= each_request.destination = "Guest House"
+          -elsif (each_request.destination.include? "Airport")
+            %td= each_request.destination = "Airport"
           -else
             %td= each_request.destination
           %td= each_request.vehicle_type

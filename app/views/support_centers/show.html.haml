@@ -65,10 +65,14 @@
             %td= ist(each_request.pick_up_date_time)
             -if (each_request.source.include? "Guest House")
               %td= each_request.source = "Guest House"
+            -elsif (each_request.source.include? "Airport")
+              %td= each_request.source = "Airport"
             -else
               %td= each_request.source
             -if (each_request.destination.include? "Guest House")
               %td= each_request.destination = "Guest House"
+            -elsif (each_request.destination.include? "Airport")
+              %td= each_request.destination = "Airport"
             -else
               %td= each_request.destination
             %td= each_request.vehicle_type
@@ -79,7 +83,7 @@
                 .row_fluid
                   .span5
                     %input{id: 'loading3', style: "display:none;width:90px;", value: 'Updating...', class: 'loading', disabled: true}
-                    %input{id: 'status', class: "update_message" ,value: each_request.status, disabled: true, name: 'new_status', style: 'width:90px'}
+                    %input{id: 'status', class: "update_message" ,value: each_request.status, disabled: true, name: 'new_status', style: 'width:90px', maxlength: "10"}
                     =hidden_field_tag :id, each_request.id
                   .span1
                   .span5
