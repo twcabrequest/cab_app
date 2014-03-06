@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
 gem 'magic_encoding'
-gem 'rails', '3.2.11'
+gem 'rails', '3.2.13'
 gem 'rubycas-client'
 gem 'haml-rails'
 gem 'pry'
 gem 'vmc'
-gem 'therubyracer'
+gem 'therubyracer', '~> 0.12.0'
 gem 'json'
 gem 'will_paginate-bootstrap'
 gem 'mailhopper'
@@ -39,6 +39,7 @@ end
     gem 'database_cleaner'
     gem 'factory_girl'
     gem 'webrick', '~> 1.3.1'
+    gem 'okta_saml'
   end
 
 

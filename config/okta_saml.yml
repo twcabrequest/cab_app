@@ -1,0 +1,9 @@
+
+
+development:
+  idp_sso_target_url:  https://thoughtworks.oktapreview.com
+  idp_cert_fingerprint: E1:6E:13:48:23:82:E0:24:94:2B:97:39:40:3A:AB:97:A7:E6:41:58
+
+test:
+  idp_sso_target_url: http://www.example.com
+  idp_cert_fingerprint: C5:19:85:D9:47:F1:BE:57:08:20:25:05:08:46:EB:27:F6:CA:B7:83
