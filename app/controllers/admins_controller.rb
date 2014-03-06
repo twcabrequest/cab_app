@@ -2,7 +2,7 @@
 class AdminsController < ApplicationController
 
   def index
-    @user_id = session[:cas_user]
+    @user_id = session[:okta_user]
     @admins  = Admin.all
   end
 

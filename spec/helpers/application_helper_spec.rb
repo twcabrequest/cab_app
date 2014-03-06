@@ -13,7 +13,7 @@ describe ApplicationHelper do
 
   context 'current user' do
     it 'should return the session user if the session has a user' do
-      session[:cas_user] = "chuck_norris"
+      session[:okta_user] = "chuck_norris"
       CASClient::Frameworks::Rails::Filter.fake("chuck_norris")
       current_user.should == "chuck_norris"
     end

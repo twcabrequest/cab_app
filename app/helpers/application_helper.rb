@@ -8,6 +8,6 @@ module ApplicationHelper
   end
 
   def current_user
-    session[:cas_user]
+    session[:okta_user]
   end
 end

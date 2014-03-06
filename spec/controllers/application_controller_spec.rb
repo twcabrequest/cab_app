@@ -23,7 +23,7 @@ describe ApplicationController do
   end
 
   it 'should return true if the logged in user is admin' do
-    session[:cas_user] = 'homer'
+    session[:okta_user] = 'homer'
     Admin.create(name: 'homer', contact_no: '9876543212',email:'apurvagu@gmail.com' ,status: false)
     CASClient::Frameworks::Rails::Filter.fake('homer')
     get :new

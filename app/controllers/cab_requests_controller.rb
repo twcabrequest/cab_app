@@ -14,7 +14,7 @@ class CabRequestsController < ApplicationController
 
   def new
     session[:requester] ||= fetch_requester_info
-    @cab_request = CabRequest.new(requester: session[:cas_user], traveler_name: session[:requester].requester_name, contact_no: session[:requester].requester_contact_no)
+    @cab_request = CabRequest.new(requester: session[:okta_user], traveler_name: session[:requester].requester_name, contact_no: session[:requester].requester_contact_no)
   end
 
   def update
@@ -23,11 +23,11 @@ class CabRequestsController < ApplicationController
 
   def create
     @cab_request = CabRequest.new(params[:cab_request])
-    @cab_request.requester = session[:cas_user]
+    @cab_request.requester = session[:okta_user]
     @cab_request.pick_up_date_time = date_time_parser(params[:cab_request][:pick_up_date], params[:cab_request][:pick_up_date_time])
     @other_source = params[:source]
     @other_destination = params[:destination]
-    requester = session[:cas_user] + "@thoughtworks.com"
+    requester = session[:okta_user] + "@thoughtworks.com"
     if @cab_request.source == 'Other'
       @cab_request.source = @other_source
       @source = 'Other'
@@ -80,7 +80,7 @@ class CabRequestsController < ApplicationController
   end
 
   def show
-    @cab_requests = CabRequest.where(requester: session[:cas_user]).reverse
+    @cab_requests = CabRequest.where(requester: session[:okta_user]).reverse
     if @cab_requests
       @cab_requests_page = @cab_requests.paginate(page: params[:page], per_page: 10)
     else
@@ -119,8 +119,8 @@ class CabRequestsController < ApplicationController
 
   def call_api
     requester_configs = load_config['requester_details'] if load_config
-    unless session[:cas_user].nil? || requester_configs.nil?
-      requester_details_api = requester_configs['base_api'] + session[:cas_user]
+    unless session[:okta_user].nil? || requester_configs.nil?
+      requester_details_api = requester_configs['base_api'] + session[:okta_user]
       response = open(requester_details_api, http_basic_authentication: [requester_configs['user_id'], requester_configs['password']]).read rescue nil
     end
     response
