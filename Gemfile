@@ -14,6 +14,7 @@ gem 'delayed_mailhopper'
 gem 'delayed_job_active_record'
 gem 'pg'
 gem 'heroku'
+gem 'okta_saml'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -39,7 +40,6 @@ end
     gem 'database_cleaner'
     gem 'factory_girl'
     gem 'webrick', '~> 1.3.1'
-    gem 'okta_saml'
   end
 
 
