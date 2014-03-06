@@ -5,9 +5,14 @@ development:
   idp_cert_fingerprint: E1:6E:13:48:23:82:E0:24:94:2B:97:39:40:3A:AB:97:A7:E6:41:58
 
 
+#production:
+#  idp_sso_target_url:  https://thoughtworks.oktapreview.com
+#  idp_cert_fingerprint: E1:6E:13:48:23:82:E0:24:94:2B:97:39:40:3A:AB:97:A7:E6:41:58
+
 production:
-  idp_sso_target_url:  https://thoughtworks.oktapreview.com
-  idp_cert_fingerprint: E1:6E:13:48:23:82:E0:24:94:2B:97:39:40:3A:AB:97:A7:E6:41:58
+  idp_sso_target_url:  https://thoughtworks.oktapreview.com/app/thoughtworks_cabrequisition_1/k1wfxmb9AHIKWRSFVLCD/sso/saml
+  idp_cert_fingerprint: B8:53:D4:A7:E6:1B:86:FF:4E:91:F6:2D:34:EB:A6:A2:8F:89:9E:6F
+
 
 test:
   idp_sso_target_url: http://www.example.com
