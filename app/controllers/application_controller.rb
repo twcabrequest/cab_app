@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :is_admin, :only => [:edit,:index,:new,:show,:create,:update]
 
   def is_admin
-    @is_admin = Admin.pluck(:name).include? session[:username]
+    @is_admin = Admin.pluck(:name).include? session[:okta_user]
   end
 
 end
