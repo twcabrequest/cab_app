@@ -13,6 +13,7 @@ class CabRequestsController < ApplicationController
   end
 
   def new
+    p session
     session[:requester] ||= fetch_requester_info
     @cab_request = CabRequest.new(requester: session[:okta_user], traveler_name: session[:requester].requester_name, contact_no: session[:requester].requester_contact_no)
   end
