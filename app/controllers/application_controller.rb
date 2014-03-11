@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     begin
     #p ">>>>>>>>>>>>>>>" , @current_user.firstName
     rescue => ex
-      p ">>>>>>>>>ERROR", puts ex.message
+      p ">>>>>>>>>ERROR", ex.message
     end
   end
 
