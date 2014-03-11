@@ -10,8 +10,12 @@ class ApplicationController < ActionController::Base
 
   def is_admin
     @is_admin = Admin.pluck(:name).include? `current_user`
-    require 'pry'; binding.pry
     p ">>>>>>>>>>>>>", @current_user.methods.join(",")
+    begin
+    p ">>>>>>>>>>>>>>>" , @current_user.firstName
+    rescue => ex
+      p ">>>>>>>>>ERROR", puts ex.message
+    end
   end
 
   def self.deroy
