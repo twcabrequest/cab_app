@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     @is_admin = Admin.pluck(:name).include? `current_user`
     p ">>>>>>>>>>>>>", @current_user.methods.join(",")
     begin
-    p ">>>>>>>>>>>>>>>" , @current_user.firstName
+    #p ">>>>>>>>>>>>>>>" , @current_user.firstName
     rescue => ex
       p ">>>>>>>>>ERROR", puts ex.message
     end
