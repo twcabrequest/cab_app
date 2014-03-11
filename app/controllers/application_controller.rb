@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   before_filter :okta_authenticate!
   #before_filter CASClient::Frameworks::Rails::Filter, :except => [:submit_response]
   #include 'okta_saml/session_helper'
-  p @current_user.email
+  p ">>>>>>>>>>>>>", @current_user.try(:email)
   before_filter :is_admin, :only => [:edit,:index,:new,:show,:create,:update]
 
   def is_admin
