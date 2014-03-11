@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
 
   def is_admin
     @is_admin = Admin.pluck(:name).include? `current_user`
+    require 'pry'; binding.pry
     p ">>>>>>>>>>>>>", @current_user.try(:email)
   end
 
