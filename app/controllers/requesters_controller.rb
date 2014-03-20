@@ -4,9 +4,10 @@ class RequestersController < ApplicationController
 
   def logout
     #cookies.delete :auth_token
-    reset_session
+    #reset_session
     p '+++++++++reached here+++++++++++++'
-    :sign_out
+    session_helper = OktaSaml::SessionHelper.new
+    session_helper.sign_out
     #CASClient::Frameworks::Rails::Filter.logout(self)
   end
 
