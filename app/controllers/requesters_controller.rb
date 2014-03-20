@@ -6,7 +6,7 @@ class RequestersController < ApplicationController
     #cookies.delete :auth_token
     #reset_session
     p '+++++++++reached here+++++++++++++'
-    OktaSaml::SessionHelper.sign_out
+    @current_user.sign_out
     #:sign_out
     #CASClient::Frameworks::Rails::Filter.logout(self)
   end
