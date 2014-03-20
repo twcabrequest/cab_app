@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def is_admin
     @is_admin = Admin.pluck(:email).include? @current_user.email
-    session[:okta_user] = @current_user.email.partition('=').first
+    session[:okta_user] = @current_user.email.partition('@').first
     p  @current_user.email.partition('@').first
     #require 'pry'; binding.pry
   end
