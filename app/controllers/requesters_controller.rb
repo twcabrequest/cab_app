@@ -6,8 +6,9 @@ class RequestersController < ApplicationController
     #cookies.delete :auth_token
     #reset_session
     p '+++++++++reached here+++++++++++++'
-    @current_user.sign_out
-    #:sign_out
+    #@current_user.methods
+
+    sign_out
     #CASClient::Frameworks::Rails::Filter.logout(self)
   end
 
