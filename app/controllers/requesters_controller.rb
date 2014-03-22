@@ -9,7 +9,7 @@ class RequestersController < ApplicationController
     p '+++++++++reached here+++++++++++++'
     #@current_user.methods
 
-    sign_out
+    okta_logout
     #CASClient::Frameworks::Rails::Filter.logout(self)
   end
 
