@@ -12,9 +12,8 @@ class ApplicationController < ActionController::Base
     p request.to_s
     p request.methods.to_a.to_s
     p request.fullpath
-    request.fullpath = '/support_centers/show'
+    #request.fullpath = '/support_centers/show'
     #p session[:redirect_url]
-    p params[:app_referer]
   end
   def is_admin
     p 'checkin admin'
