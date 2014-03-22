@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   def print_session
     p "am here"
     p session[:redirect_url]
+    session[:redirect_url] = nil
   end
   def is_admin
     p 'checkin admin'
