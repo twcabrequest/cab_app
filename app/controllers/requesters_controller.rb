@@ -9,7 +9,7 @@ class RequestersController < ApplicationController
     p '+++++++++reached here+++++++++++++'
     #@current_user.methods
     sign_out
-    redirect_to 'ranquil-basin-1474.herokuapp.com'
+    redirect_to '/'
     #cookies.delete(:remember_token)
     #@current_user = nil
     #CASClient::Frameworks::Rails::Filter.logout(self)
