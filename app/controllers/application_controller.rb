@@ -7,11 +7,10 @@ class ApplicationController < ActionController::Base
   before_filter :okta_authenticate!, :except => [:submit_response]
   before_filter :is_admin, :only => [:edit,:index,:new,:show,:create,:update]
 
-
   def print_session
     p "am here"
+    request.fullpath = 'tranquil-basin-1474.herokuapp.com'
     p session[:redirect_url]
-    session[:redirect_url] = nil
   end
   def is_admin
     p 'checkin admin'
