@@ -4,7 +4,7 @@ class RequestersController < ApplicationController
   include OktaSaml::SessionHelper
 
   def logout
-    #sign_out
+    sign_out
     redirect_to 'https://thoughtworks.oktapreview.com/login/signout'
   end
 
