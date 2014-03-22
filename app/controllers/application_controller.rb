@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
     p "am here"
     request.fullpath = 'tranquil-basin-1474.herokuapp.com'
     p session[:redirect_url]
+    p params[:app_referer]
   end
   def is_admin
     p 'checkin admin'
