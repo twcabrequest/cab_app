@@ -9,7 +9,8 @@ class RequestersController < ApplicationController
     p '+++++++++reached here+++++++++++++'
     #@current_user.methods
 
-    okta_logout
+    cookies.delete(:remember_token)
+    @current_user = nil
     #CASClient::Frameworks::Rails::Filter.logout(self)
   end
 
