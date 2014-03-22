@@ -5,6 +5,7 @@ class RequestersController < ApplicationController
 
   def logout
     sign_out
+    session[:redirect_url] = nil
     redirect_to 'https://thoughtworks.oktapreview.com/login/signout'
   end
 
