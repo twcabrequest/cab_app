@@ -1,4 +1,5 @@
 # -*- encoding : utf-8 -*-
+require 'okta_saml/session_helper'
 class RequestersController < ApplicationController
   include OktaSaml::SessionHelper
 
