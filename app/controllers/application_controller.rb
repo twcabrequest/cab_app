@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
 
   def print_session
     p "am here"
+    p request.to_s
+    p request.methods.to_a.to_s
     #request.fullpath = 'tranquil-basin-1474.herokuapp.com'
     #p session[:redirect_url]
     p params[:app_referer]
