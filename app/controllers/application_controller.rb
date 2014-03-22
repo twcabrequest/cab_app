@@ -13,8 +13,5 @@ class ApplicationController < ActionController::Base
     p 'checkin admin'
     @is_admin = Admin.pluck(:email).include? @current_user.email
     session[:okta_user] = @current_user.email.partition('@').first
-    p session[:requesters_logout_path]
-    p session[:requesters_logout_url]
-    p session[:redirect_url]
   end
 end
