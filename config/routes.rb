@@ -69,7 +69,7 @@ CabApp::Application.routes.draw do
 
   # You can have the root of your site routed with 'root'
   # just remember to delete public/index.html.
-   root :to => 'cab_requests#index'
+   root :to => 'tranquil-basin-1474.herokuapp.com/saml/init'
 
   # See how all your routes lay out with 'rake routes'
 
