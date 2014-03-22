@@ -3,7 +3,7 @@
 class ApplicationController < ActionController::Base
   include OktaSaml::SessionHelper
   protect_from_forgery
-  print_session
+  before_filter :print_session
   before_filter :okta_authenticate!, :except => [:submit_response]
   before_filter :is_admin, :only => [:edit,:index,:new,:show,:create,:update]
 
