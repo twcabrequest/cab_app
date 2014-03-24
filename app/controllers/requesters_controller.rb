@@ -5,7 +5,7 @@ class RequestersController < ApplicationController
 
   def logout
     sign_out
-    redirect_to 'http://tranquil-basin-1474.herokuapp.com/'
+    redirect_to "http://" + request.host_with_port
   end
 
 end
